@@ -15,3 +15,7 @@ Adds and indicator to the status bar showing if a file is read-only or writeable
 ## TODO List
 
 - To be compatible with Mac OS X and Linux
+
+## License
+
+[MIT](LICENSE.md) &copy; Alessandro Fragnani
