@@ -6,11 +6,11 @@ Adds and indicator to the status bar showing if a file is read-only or writeable
 
 #### Read-only
 
-![Read-only](https://raw.githubusercontent.com/alefragnani/read-only-indicator/master/readonly.png)
+![Read-only](https://raw.githubusercontent.com/alefragnani/atom-read-only-indicator/master/readonly.png)
 
 #### Writeable
 
-![Writeable](https://raw.githubusercontent.com/alefragnani/read-only-indicator/master/writeable.png)
+![Writeable](https://raw.githubusercontent.com/alefragnani/atom-read-only-indicator/master/writeable.png)
 
 ## TODO List
 

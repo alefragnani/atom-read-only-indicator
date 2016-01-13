@@ -1,3 +1,6 @@
+## 0.4.0 - Repository renamed
+* GitHub repository renamed
+
 ## 0.3.0 - License updated
 * License updated
 
