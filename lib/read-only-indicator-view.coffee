@@ -6,8 +6,8 @@ class ReadOnlyIndicatorView extends HTMLDivElement
   initialize: (@statusBar) ->
     @classList.add('inline-block')
     @readOnlySpan = document.createElement('span')
-    @readOnlySpan.classList.add('read-only-indicator', 'inline-block')
-    @readOnlySpan.textContent = '[RW]'
+    @readOnlySpan.classList.add('read-only-indicator', 'inline-block', 'icon')
+    @readOnlySpan.textContent = ' [RW]'
     @appendChild(@readOnlySpan)
     @handleEvents()
     @tile = @statusBar.addLeftTile(item: this, priority: 200)
@@ -43,11 +43,11 @@ class ReadOnlyIndicatorView extends HTMLDivElement
         try
           fs.accessSync(filePath, fs.W_OK)
           @readOnlySpan.classList.remove('emphasis')
-          @readOnlySpan.textContent = '[RW]'
+          @readOnlySpan.textContent = ' [RW]'
           @style.display = ''
         catch
           @readOnlySpan.classList.add('emphasis')
-          @readOnlySpan.textContent = '[RO]'
+          @readOnlySpan.textContent = ' [RO]'
           @style.display = ''
 
 
