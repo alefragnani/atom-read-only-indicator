@@ -1,5 +1,12 @@
 module.exports =
 
+  config:
+    showIcon:
+      type: 'boolean'
+      title: 'Show Icon'
+      description: 'Shows an icon to represent the file access'
+      default: true
+      
   activate: ->
 
   consumeStatusBar: (@statusBar) ->

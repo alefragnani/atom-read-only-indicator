@@ -40,6 +40,13 @@ class ReadOnlyIndicatorView extends HTMLDivElement
       if filePath == undefined
         @style.display = 'none'
       else
+        
+        @showIcon = atom.config.get('read-only-indicator.showIcon')
+        if @showIcon == true
+          @readOnlySpan.classList.add('iconed')
+        else
+          @readOnlySpan.classList.remove('iconed')
+        
         try
           fs.accessSync(filePath, fs.W_OK)
           @readOnlySpan.classList.remove('emphasis')
@@ -49,7 +56,7 @@ class ReadOnlyIndicatorView extends HTMLDivElement
           @readOnlySpan.classList.add('emphasis')
           @readOnlySpan.textContent = ' [RO]'
           @style.display = ''
-
+          
 
 module.exports =
   document.registerElement('read-only-indicator', prototype: ReadOnlyIndicatorView.prototype)

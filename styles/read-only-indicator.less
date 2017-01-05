@@ -7,11 +7,17 @@
 
 .read-only-indicator {
   color: @text-color;
-  .octicon(pencil);
   
+  &.iconed {
+    .octicon(pencil);
+  }
 
   &.emphasis {
     color: @text-color-warning;
-    .octicon(circle-slash);
+    
+    &.iconed {
+      .octicon(circle-slash);
+    }
   }
+  
 }
