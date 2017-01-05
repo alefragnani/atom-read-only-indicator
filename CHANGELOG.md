@@ -1,3 +1,7 @@
+## 0.6.0
+* Package code was updated to support CoffeeScript upgrade
+* Icon added to the status bar (you may turn off in settings)
+
 ## 0.5.0 - Donation button
 * Donation button added
 
