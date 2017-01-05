@@ -5,7 +5,7 @@ module.exports =
   consumeStatusBar: (@statusBar) ->
     ReadOnlyIndicatorView = require './read-only-indicator-view'
     @view = new ReadOnlyIndicatorView()
-    @view.initialize(statusBar)
+    @view.initialize(@statusBar)
 
   deactivate: ->
     @view?.destroy()
