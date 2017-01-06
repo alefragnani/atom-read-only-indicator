@@ -1,4 +1,7 @@
-## 0.6.0
+## 0.6.1 - Publishing fixes
+* Typo in `README.md`
+
+## 0.6.0 - New Features
 * Package code was updated to support CoffeeScript upgrade
 * Icon added to the status bar (you may turn off in settings)
 
