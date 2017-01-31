@@ -12,6 +12,20 @@ Adds and indicator to the status bar showing if a file is read-only or writeable
 
 ![Writeable](https://raw.githubusercontent.com/alefragnani/atom-read-only-indicator/master/writeable.png)
 
+## Settings
+
+* Define the position where the Status Bar indicator is located
+```cson
+    "read-only-indicator": 
+      position: "left" # or "right"
+```
+
+* Define how much information is displayed in the Status Bar indicator
+```cson
+    "read-only-indicator": 
+      showIcon: true # or false
+```
+
 ## License
 
 [MIT](LICENSE.md) &copy; Alessandro Fragnani

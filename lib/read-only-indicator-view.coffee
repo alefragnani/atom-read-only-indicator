@@ -10,7 +10,12 @@ class ReadOnlyIndicatorView extends HTMLDivElement
     @readOnlySpan.textContent = ' [RW]'
     @appendChild(@readOnlySpan)
     @handleEvents()
-    @tile = @statusBar.addLeftTile(item: this, priority: 200)
+    
+    @position = atom.config.get('read-only-indicator.position')
+    if @position == 'left'
+      @tile = @statusBar.addLeftTile(item: this, priority: 200)
+    else
+      @tile = @statusBar.addRightTile(item: this, priority: 200)
 
   destroy: ->
     @editorSubscriptions?.dispose()

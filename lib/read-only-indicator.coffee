@@ -6,6 +6,12 @@ module.exports =
       title: 'Show Icon'
       description: 'Shows an icon to represent the file access'
       default: true
+    position:
+      type: 'string'
+      title: 'Position'
+      description: 'Define the position where the Status Bar indicator is located'
+      default: 'left'
+      enum: ['left', 'right']
       
   activate: ->
 
