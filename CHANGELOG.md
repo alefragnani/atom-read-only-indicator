@@ -1,3 +1,6 @@
+## 0.8.0 - Patreon button
+* Patreon button added
+
 ## 0.7.0 - New Fetures
 * Custom Position
 
