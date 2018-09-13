@@ -1,7 +1,7 @@
 {
   "name": "read-only-indicator",
   "main": "./lib/read-only-indicator",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Adds and indicator to the status bar showing if a file is read-only or writeable",
   "repository": "https://github.com/alefragnani/atom-read-only-indicator",
   "license": "MIT",
