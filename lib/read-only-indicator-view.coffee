@@ -10,7 +10,9 @@ class ReadOnlyIndicatorView extends HTMLDivElement
     @readOnlySpan.textContent = ' [RW]'
     @appendChild(@readOnlySpan)
     @handleEvents()
-
+    @listenerRunning = false
+    @watcher = 0
+    @autorefresh = atom.config.get('read-only-indicator.autorefresh')
     @position = atom.config.get('read-only-indicator.position')
     if @position == 'left'
       @tile = @statusBar.addLeftTile(item: this, priority: 200)
@@ -27,14 +29,12 @@ class ReadOnlyIndicatorView extends HTMLDivElement
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.workspace.onDidChangeActivePaneItem =>
       @subscribeToActiveTextEditor()
-    item = atom.workspace.getActivePaneItem()
-    filePath = item?.getPath?()
-    if filePath != undefined
-      fs.watch(filePath, (event, filename ) => @subscribeToActiveTextEditor() )
+
     @subscribeToActiveTextEditor()
 
   subscribeToActiveTextEditor: ->
     @editorSubscriptions?.dispose()
+    @listenerRunning = false
     @updateStatusBar()
 
   updateStatusBar: ->
@@ -48,7 +48,11 @@ class ReadOnlyIndicatorView extends HTMLDivElement
       if filePath == undefined
         @style.display = 'none'
       else
-
+        if @autorefresh
+          if not @listenerRunning
+            if @watcher
+              @watcher.close()
+            @watcher = fs.watch(filePath , ( c, f ) =>  @subscribeToActiveTextEditor() )
         @showIcon = atom.config.get('read-only-indicator.showIcon')
         if @showIcon == true
           @readOnlySpan.classList.add('iconed')
