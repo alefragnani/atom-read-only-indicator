@@ -54,6 +54,9 @@ class ReadOnlyIndicatorView extends HTMLDivElement
         catch
           fs.chmod( @currentPaneFilePath, 0o200, (err) =>
             console.log @currentPaneFilePath, 'made read/write. Any error codes:', err )
+        if not @autorefresh
+          @updateStatusBar() #if autorefresh is not enabled, clicking will change read/write but not the icon
+                             #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice
 
 
   activePaneChanged: ->
