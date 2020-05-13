@@ -52,10 +52,10 @@ class ReadOnlyIndicatorView extends HTMLDivElement
           fs.access( @currentPaneFilePath, fs.constants.W_OK, (err) =>
             updatedpermissions = if err then 0o600 else 0o400
             fs.chmod( @currentPaneFilePath, updatedpermissions, (err) =>
-              console.log @currentPaneFilePath, 'rw toggled for windows. Any error codes:', err )
-            if not @autorefresh
-              @updateStatusBar()) #if autorefresh is not enabled, clicking will change read/write but not the icon
-                                 #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice)
+              console.log @currentPaneFilePath, 'rw toggled for windows. Any error codes:', err
+              if not @autorefresh
+                @updateStatusBar())) #if autorefresh is not enabled, clicking will change read/write but not the icon
+                                 #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice
         else
           fs.stat( @currentPaneFilePath, ( err, stats ) =>
             if stats["mode"] & fs.constants.S_IWUSR
@@ -63,10 +63,11 @@ class ReadOnlyIndicatorView extends HTMLDivElement
             else
               updatedpermissions = stats["mode"] + fs.constants.S_IWUSR
             fs.chmod( @currentPaneFilePath, updatedpermissions, (err) =>
-              console.log @currentPaneFilePath, 'rw toggled for unix. Any error codes:', err )
-            if not @autorefresh
-              @updateStatusBar()) #if autorefresh is not enabled, clicking will change read/write but not the icon
-                                 #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice)
+              console.log @currentPaneFilePath, 'rw toggled for unix. Any error codes:', err
+              if not @autorefresh
+                @updateStatusBar())) #if autorefresh is not enabled, clicking will change read/write but not the icon
+                                 #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice
+
 
   activePaneChanged: ->
     #when pane changes, set the file watcher to the file in the pan
