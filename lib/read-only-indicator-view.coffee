@@ -30,7 +30,6 @@ class ReadOnlyIndicatorView extends HTMLDivElement
 
 
     @listenerRunning = false
-
     #watches the file of the current pane for changes
     @watcher = undefined
     @currentPaneFilePath = undefined
@@ -47,17 +46,27 @@ class ReadOnlyIndicatorView extends HTMLDivElement
     #if the user settings allow, toggle write permissions on file of active pane.
     if @clicktochangerw
       if @currentPaneFilePath != undefined
-        try
-          fs.accessSync( @currentPaneFilePath, fs.W_OK )
-          fs.chmod( @currentPaneFilePath, 0o400, (err) =>
-            console.log @currentPaneFilePath, 'made read only. Any error codes:', err )
-        catch
-          fs.chmod( @currentPaneFilePath, 0o200, (err) =>
-            console.log @currentPaneFilePath, 'made read/write. Any error codes:', err )
-        if not @autorefresh
-          @updateStatusBar() #if autorefresh is not enabled, clicking will change read/write but not the icon
-                             #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice
-
+        @others = ""
+        @group = ""
+        if process.platform == 'win32'
+          fs.access( @currentPaneFilePath, fs.constants.W_OK, (err) =>
+            updatedpermissions = if err then 0o600 else 0o400
+            fs.chmod( @currentPaneFilePath, updatedpermissions, (err) =>
+              console.log @currentPaneFilePath, 'rw toggled for windows. Any error codes:', err )
+            if not @autorefresh
+              @updateStatusBar()) #if autorefresh is not enabled, clicking will change read/write but not the icon
+                                 #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice)
+        else
+          fs.stat( @currentPaneFilePath, ( err, stats ) =>
+            if stats["mode"] & fs.constants.S_IWUSR
+              updatedpermissions = stats["mode"] - fs.constants.S_IWUSR
+            else
+              updatedpermissions = stats["mode"] + fs.constants.S_IWUSR
+            fs.chmod( @currentPaneFilePath, updatedpermissions, (err) =>
+              console.log @currentPaneFilePath, 'rw toggled for unix. Any error codes:', err )
+            if not @autorefresh
+              @updateStatusBar()) #if autorefresh is not enabled, clicking will change read/write but not the icon
+                                 #if autorefresh is enabled, the file change triggers updateStatusBar, so we don't call it to avoid executing twice)
 
   activePaneChanged: ->
     #when pane changes, set the file watcher to the file in the pan
